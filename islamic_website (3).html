@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نورِ اسلام</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C8991A;--gold-light:#E8C547;--gold-dark:#8B6A0D;
+  --green:#1A3D2B;--green-mid:#2E6B47;--green-light:#4A9B6A;
+  --cream:#FAF6EC;--white:#fff;--text:#1A1A1A;--muted:#555;
+  --bg:#FAF6EC;--card:#fff;--nav:#1A3D2B;--footer:#111;
+}
+body.dark{
+  --cream:#0f1a14;--white:#1a2e22;--text:#e8e8e8;--muted:#aaa;
+  --bg:#0f1a14;--card:#1a2e22;--nav:#0a1a10;--footer:#050d08;
+}
+body{font-family:'Amiri',serif;background:var(--bg);color:var(--text);direction:rtl;transition:background 0.3s,color 0.3s;}
+
+/* NAV */
+nav{background:var(--nav);padding:0 1.2rem;display:flex;align-items:center;justify-content:space-between;height:60px;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;}
+.nav-logo{color:var(--gold-light);font-size:19px;font-weight:700;}
+.nav-links{display:flex;gap:0.8rem;list-style:none;flex-wrap:wrap;}
+.nav-links a{color:#ccc;text-decoration:none;font-size:13px;padding:4px 8px;border-radius:6px;transition:background 0.2s,color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-light);background:rgba(200,153,26,0.15);}
+.dark-toggle{background:rgba(200,153,26,0.2);border:1px solid var(--gold);color:var(--gold-light);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:13px;}
+
+/* PAGES */
+.page{display:none;}.page.active{display:block;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#1A3D2B 0%,#2E6B47 60%,#4A9B6A 100%);padding:3.5rem 1.5rem 2.5rem;text-align:center;}
+.bismillah{font-size:30px;color:var(--gold-light);margin-bottom:0.8rem;}
+.hero-title{font-size:22px;color:#fff;margin-bottom:0.5rem;}
+.hero-subtitle{font-size:14px;color:rgba(255,255,255,0.75);max-width:460px;margin:0 auto 1.5rem;line-height:1.8;}
+.hero-btn{display:inline-block;background:var(--gold);color:#fff;padding:0.55rem 1.6rem;border-radius:30px;text-decoration:none;font-size:14px;font-weight:700;border:none;cursor:pointer;}
+
+/* AYAH TICKER */
+.ayah-banner{background:var(--gold);padding:0.9rem 1.5rem;text-align:center;color:#fff;font-size:18px;}
+.ayah-ref{font-size:12px;color:rgba(255,255,255,0.85);margin-top:3px;}
+
+/* SECTION */
+.section{padding:2rem 1.2rem;max-width:860px;margin:0 auto;}
+.section-title{font-size:20px;color:var(--green-mid);text-align:center;margin-bottom:0.4rem;}
+body.dark .section-title{color:var(--gold-light);}
+.divider{width:50px;height:3px;background:var(--gold);margin:0 auto 1.5rem;border-radius:2px;}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.9rem;}
+.card{background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.2rem 0.9rem;text-align:center;border-top:3px solid var(--gold);cursor:pointer;transition:transform 0.2s;}
+body.dark .card{border-color:#333;}
+.card:hover{transform:translateY(-3px);}
+.card-icon{font-size:28px;margin-bottom:0.6rem;display:block;}
+.card h3{font-size:15px;color:var(--green);margin-bottom:0.3rem;}
+body.dark .card h3{color:var(--gold-light);}
+.card p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* HADITH */
+.hadith-section{background:var(--green);padding:2.5rem 1.5rem;text-align:center;}
+.hadith-label{color:var(--gold-light);font-size:12px;letter-spacing:2px;margin-bottom:0.7rem;}
+.hadith-text{font-size:20px;color:#fff;line-height:1.9;margin-bottom:0.5rem;}
+.hadith-urdu{font-size:15px;color:#ddd;line-height:1.8;margin-bottom:0.5rem;}
+.hadith-source{font-size:12px;color:rgba(255,255,255,0.6);}
+.hadith-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+.hadith-nav button{background:rgba(200,153,26,0.3);border:1px solid var(--gold);color:var(--gold-light);padding:6px 16px;border-radius:20px;cursor:pointer;font-size:13px;}
+
+/* PRAYER */
+.prayer-section{padding:2rem 1.2rem;max-width:680px;margin:0 auto;}
+.prayer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.6rem;}
+.prayer-card{background:var(--card);border:0.5px solid #e0d8c8;border-radius:10px;padding:0.8rem 0.3rem;text-align:center;}
+body.dark .prayer-card{border-color:#333;}
+.prayer-arabic{font-size:16px;color:var(--gold);margin-bottom:3px;display:block;}
+.prayer-name{font-size:12px;font-weight:700;color:var(--green);margin-bottom:3px;}
+body.dark .prayer-name{color:var(--gold-light);}
+.prayer-time{font-size:14px;color:var(--gold-dark);font-weight:700;}
+
+/* HIJRI */
+.hijri-box{background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.5rem;text-align:center;margin-bottom:1.5rem;border-top:3px solid var(--gold);}
+body.dark .hijri-box{border-color:#333;}
+.hijri-date{font-size:28px;color:var(--green);font-weight:700;}
+body.dark .hijri-date{color:var(--gold-light);}
+.hijri-label{font-size:13px;color:var(--muted);}
+
+/* QIBLA */
+.qibla-box{background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.5rem;text-align:center;border-top:3px solid var(--gold);}
+body.dark .qibla-box{border-color:#333;}
+.compass{width:120px;height:120px;margin:0.8rem auto;position:relative;}
+.compass-circle{width:120px;height:120px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:40px;background:var(--bg);}
+.qibla-arrow{font-size:50px;display:inline-block;transition:transform 1s;}
+.qibla-info{font-size:14px;color:var(--muted);margin-top:0.5rem;}
+.qibla-deg{font-size:20px;color:var(--green);font-weight:700;}
+body.dark .qibla-deg{color:var(--gold-light);}
+
+/* 99 NAMES */
+.names-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.7rem;}
+.name-card{background:var(--card);border:0.5px solid #ddd;border-radius:10px;padding:0.8rem;text-align:center;}
+body.dark .name-card{border-color:#333;}
+.name-arabic{font-size:18px;color:var(--green);font-weight:700;}
+body.dark .name-arabic{color:var(--gold-light);}
+.name-urdu{font-size:12px;color:var(--muted);margin-top:3px;}
+.name-num{font-size:11px;color:var(--gold-dark);margin-bottom:3px;}
+
+/* SURAH PAGE */
+.surah-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.7rem;}
+.surah-item{background:var(--card);border:0.5px solid #ddd;border-radius:10px;padding:0.9rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+body.dark .surah-item{border-color:#333;}
+.surah-item:hover{border-color:var(--gold);background:rgba(200,153,26,0.05);}
+.surah-name{font-size:16px;color:var(--green);font-weight:700;}
+body.dark .surah-name{color:var(--gold-light);}
+.surah-info{font-size:12px;color:var(--muted);}
+.surah-num{font-size:14px;color:var(--gold);font-weight:700;}
+
+/* DUAEN PAGE */
+.dua-list{display:flex;flex-direction:column;gap:1rem;}
+.dua-item{background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.2rem;border-right:4px solid var(--gold);}
+body.dark .dua-item{border-color:#333;}
+.dua-cat{font-size:11px;color:var(--gold-dark);margin-bottom:0.5rem;font-weight:700;}
+.dua-arabic{font-size:20px;color:var(--green);line-height:1.9;margin-bottom:0.5rem;}
+body.dark .dua-arabic{color:var(--gold-light);}
+.dua-urdu{font-size:13px;color:var(--muted);line-height:1.7;}
+.dua-src{font-size:11px;color:#999;margin-top:0.4rem;}
+
+/* SEARCH */
+.search-bar{display:flex;gap:0.5rem;margin-bottom:1.2rem;}
+.search-bar input{flex:1;padding:0.6rem 1rem;border:1px solid #ddd;border-radius:25px;font-size:14px;font-family:'Amiri',serif;background:var(--card);color:var(--text);direction:rtl;}
+body.dark .search-bar input{border-color:#333;}
+.search-bar button{background:var(--gold);color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:25px;cursor:pointer;font-size:13px;}
+
+/* CONTACT */
+.contact-form{background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.5rem;max-width:500px;margin:0 auto;}
+body.dark .contact-form{border-color:#333;}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:14px;color:var(--muted);margin-bottom:5px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:0.6rem 0.9rem;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:'Amiri',serif;background:var(--card);color:var(--text);direction:rtl;}
+body.dark .form-group input,body.dark .form-group textarea,body.dark .form-group select{border-color:#333;}
+.form-group textarea{height:100px;resize:vertical;}
+.submit-btn{width:100%;background:var(--gold);color:#fff;border:none;padding:0.7rem;border-radius:8px;font-size:15px;cursor:pointer;font-family:'Amiri',serif;}
+.success-msg{display:none;background:#e8f5e9;color:#2e7d32;padding:0.8rem;border-radius:8px;text-align:center;margin-top:0.8rem;font-size:14px;}
+
+/* DARK MODE READER */
+.reader-box{background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.5rem;margin-top:1rem;}
+body.dark .reader-box{border-color:#333;}
+.reader-arabic{font-size:26px;color:var(--green);line-height:2.2;text-align:center;}
+body.dark .reader-arabic{color:var(--gold-light);}
+.reader-urdu{font-size:15px;color:var(--muted);line-height:1.9;margin-top:0.8rem;}
+.reader-controls{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+.reader-controls button{background:var(--card);border:1px solid #ddd;color:var(--text);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:12px;}
+body.dark .reader-controls button{border-color:#444;}
+.reader-controls button.active{background:var(--gold);color:#fff;border-color:var(--gold);}
+
+footer{background:var(--footer);color:#888;text-align:center;padding:1.2rem;font-size:13px;border-top:2px solid var(--gold-dark);}
+footer span{color:var(--gold-light);}
+
+@media(max-width:500px){
+  .prayer-grid{grid-template-columns:repeat(3,1fr);}
+  .nav-links{display:none;}
+  .bismillah{font-size:22px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">☪ نورِ اسلام</div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showPage('home',this)">گھر</a></li>
+    <li><a href="#" onclick="showPage('quran',this)">قرآن</a></li>
+    <li><a href="#" onclick="showPage('hadith',this)">احادیث</a></li>
+    <li><a href="#" onclick="showPage('duaen',this)">دعائیں</a></li>
+    <li><a href="#" onclick="showPage('names',this)">اسمائے حسنیٰ</a></li>
+    <li><a href="#" onclick="showPage('calendar',this)">کیلنڈر</a></li>
+    <li><a href="#" onclick="showPage('contact',this)">رابطہ</a></li>
+  </ul>
+  <button class="dark-toggle" onclick="toggleDark()">🌙 ڈارک</button>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+    <h1 class="hero-title">نورِ اسلام — آپ کی روحانی رہنمائی</h1>
+    <p class="hero-subtitle">قرآنِ کریم، احادیثِ مبارکہ، اور دینی علم ایک جگہ</p>
+    <button class="hero-btn" onclick="showPage('quran',null)">قرآن پڑھیں ←</button>
+  </div>
+
+  <div class="ayah-banner">
+    <div>وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ</div>
+    <div class="ayah-ref">سورۃ الطلاق — آیت ۲-۳</div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">دینی خدمات</h2>
+    <div class="divider"></div>
+    <div class="cards">
+      <div class="card" onclick="showPage('quran',null)">
+        <span class="card-icon">📖</span>
+        <h3>قرآنِ کریم</h3>
+        <p>تلاوت، ترجمہ، اور تفسیر کے ساتھ</p>
+      </div>
+      <div class="card" onclick="showPage('hadith',null)">
+        <span class="card-icon">🌙</span>
+        <h3>احادیثِ نبوی</h3>
+        <p>صحیح بخاری اور مسلم سے مستند روایات</p>
+      </div>
+      <div class="card" onclick="showPage('home',null);setTimeout(()=>document.getElementById('prayer-sec').scrollIntoView(),100)">
+        <span class="card-icon">🕌</span>
+        <h3>نماز کے اوقات</h3>
+        <p>لاہور کے مطابق روزانہ اوقات</p>
+      </div>
+      <div class="card" onclick="showPage('duaen',null)">
+        <span class="card-icon">🤲</span>
+        <h3>مسنون دعائیں</h3>
+        <p>روزمرہ زندگی کی دعائیں</p>
+      </div>
+      <div class="card" onclick="showPage('names',null)">
+        <span class="card-icon">✨</span>
+        <h3>اسمائے حسنیٰ</h3>
+        <p>اللہ کے ۹۹ خوبصورت نام</p>
+      </div>
+      <div class="card" onclick="showPage('calendar',null)">
+        <span class="card-icon">📅</span>
+        <h3>اسلامی کیلنڈر</h3>
+        <p>ہجری تاریخ اور اہم ایام</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRAYER TIMES -->
+  <div id="prayer-sec" class="prayer-section">
+    <h2 class="section-title">نمازوں کے اوقات — بنوں</h2>
+    <div class="divider"></div>
+    <div class="prayer-grid">
+      <div class="prayer-card"><span class="prayer-arabic">الفجر</span><div class="prayer-name">فجر</div><div class="prayer-time" id="fajr-time">04:12</div></div>
+      <div class="prayer-card"><span class="prayer-arabic">الظهر</span><div class="prayer-name">ظہر</div><div class="prayer-time" id="dhuhr-time">12:15</div></div>
+      <div class="prayer-card"><span class="prayer-arabic">العصر</span><div class="prayer-name">عصر</div><div class="prayer-time" id="asr-time">15:45</div></div>
+      <div class="prayer-card"><span class="prayer-arabic">المغرب</span><div class="prayer-name">مغرب</div><div class="prayer-time" id="maghrib-time">19:02</div></div>
+      <div class="prayer-card"><span class="prayer-arabic">العشاء</span><div class="prayer-name">عشاء</div><div class="prayer-time" id="isha-time">20:30</div></div>
+    </div>
+  </div>
+
+  <!-- HADITH OF DAY -->
+  <div class="hadith-section">
+    <div class="hadith-label">آج کی حدیث</div>
+    <div class="hadith-text" id="hd-ar"></div>
+    <div class="hadith-urdu" id="hd-ur"></div>
+    <div class="hadith-source" id="hd-src"></div>
+    <div class="hadith-nav">
+      <button onclick="prevHadith()">← پچھلی</button>
+      <button onclick="nextHadith()">اگلی →</button>
+    </div>
+  </div>
+
+  <!-- QIBLA -->
+  <div class="section">
+    <h2 class="section-title">قبلہ کی سمت — بنوں</h2>
+    <div class="divider"></div>
+    <div class="qibla-box">
+      <div class="compass">
+        <div class="compass-circle">
+          <div class="qibla-arrow" id="qibla-arrow">🧭</div>
+        </div>
+      </div>
+      <div class="qibla-deg" id="qibla-deg">۲۷۷°</div>
+      <div class="qibla-info">بنوں سے قبلہ کی سمت مغرب کی طرف ہے</div>
+    </div>
+  </div>
+
+  <!-- TODAY'S DUA -->
+  <div class="section" style="padding-top:0.5rem;">
+    <h2 class="section-title">آج کی دعا</h2>
+    <div class="divider"></div>
+    <div style="background:var(--card);border:0.5px solid #ddd;border-radius:12px;padding:1.5rem;max-width:520px;margin:0 auto;border-top:3px solid var(--gold);text-align:center;">
+      <div style="font-size:22px;color:var(--green);margin-bottom:0.7rem;line-height:1.8;" id="today-dua-ar">اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ</div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.8;" id="today-dua-ur">اے اللہ! میں تجھ سے عافیت مانگتا ہوں۔</div>
+      <div style="font-size:11px;color:#999;margin-top:0.4rem;" id="today-dua-src">سنن ابن ماجہ</div>
+    </div>
+  </div>
+</div>
+
+<!-- QURAN PAGE -->
+<div id="page-quran" class="page">
+  <div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+    <div style="font-size:18px;color:var(--gold-light);margin-bottom:0.3rem;">قرآنِ کریم</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.7);">سورتیں اور ان کا اردو ترجمہ</div>
+  </div>
+  <div class="section">
+    <div class="search-bar">
+      <input type="text" id="surah-search" placeholder="سورۃ تلاش کریں..." oninput="filterSurahs()">
+      <button onclick="filterSurahs()">تلاش</button>
+    </div>
+    <div class="surah-list" id="surah-list"></div>
+  </div>
+  <div id="surah-reader" style="display:none;">
+    <div class="section">
+      <button onclick="closeSurah()" style="background:var(--gold);color:#fff;border:none;padding:6px 16px;border-radius:20px;cursor:pointer;margin-bottom:1rem;font-size:13px;">← واپس</button>
+      <div class="reader-controls">
+        <button onclick="setFont('sm')" id="btn-sm">چھوٹا</button>
+        <button onclick="setFont('md')" id="btn-md" class="active">درمیانہ</button>
+        <button onclick="setFont('lg')" id="btn-lg">بڑا</button>
+      </div>
+      <div class="reader-box">
+        <div id="surah-title" style="text-align:center;font-size:20px;color:var(--green);margin-bottom:1rem;font-weight:700;"></div>
+        <div style="text-align:center;font-size:22px;color:var(--gold);margin-bottom:1rem;">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+        <div class="reader-arabic" id="reader-arabic"></div>
+        <div class="reader-urdu" id="reader-urdu"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HADITH PAGE -->
+<div id="page-hadith" class="page">
+  <div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+    <div style="font-size:18px;color:var(--gold-light);">احادیثِ نبوی ﷺ</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.7);">مستند احادیث کا مجموعہ</div>
+  </div>
+  <div class="section">
+    <div class="search-bar">
+      <input type="text" id="hadith-search" placeholder="حدیث تلاش کریں..." oninput="filterHadiths()">
+      <button onclick="filterHadiths()">تلاش</button>
+    </div>
+    <div id="hadith-list" style="display:flex;flex-direction:column;gap:1rem;"></div>
+  </div>
+</div>
+
+<!-- DUAEN PAGE -->
+<div id="page-duaen" class="page">
+  <div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+    <div style="font-size:18px;color:var(--gold-light);">مسنون دعائیں</div>
+  </div>
+  <div class="section">
+    <div class="search-bar">
+      <input type="text" id="dua-search" placeholder="دعا تلاش کریں..." oninput="filterDuas()">
+      <button onclick="filterDuas()">تلاش</button>
+    </div>
+    <div class="dua-list" id="dua-list"></div>
+  </div>
+</div>
+
+<!-- 99 NAMES -->
+<div id="page-names" class="page">
+  <div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+    <div style="font-size:18px;color:var(--gold-light);">اللہ کے ۹۹ نام — اسمائے حسنیٰ</div>
+  </div>
+  <div class="section">
+    <div class="search-bar">
+      <input type="text" id="names-search" placeholder="نام تلاش کریں..." oninput="filterNames()">
+      <button onclick="filterNames()">تلاش</button>
+    </div>
+    <div class="names-grid" id="names-grid"></div>
+  </div>
+</div>
+
+<!-- CALENDAR PAGE -->
+<div id="page-calendar" class="page">
+  <div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+    <div style="font-size:18px;color:var(--gold-light);">اسلامی کیلنڈر</div>
+  </div>
+  <div class="section">
+    <div class="hijri-box">
+      <div class="hijri-label">آج کی ہجری تاریخ</div>
+      <div class="hijri-date" id="hijri-date"></div>
+      <div class="hijri-label" style="margin-top:0.5rem;" id="hijri-month-name"></div>
+    </div>
+    <h3 style="text-align:center;color:var(--green);margin-bottom:1rem;font-size:16px;">اسلامی اہم ایام</h3>
+    <div style="display:flex;flex-direction:column;gap:0.8rem;" id="events-list"></div>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="page-contact" class="page">
+  <div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+    <div style="font-size:18px;color:var(--gold-light);">ہم سے رابطہ کریں</div>
+  </div>
+  <div class="section">
+    <div class="contact-form">
+      <div class="form-group">
+        <label>آپ کا نام</label>
+        <input type="text" id="c-name" placeholder="محمد احمد">
+      </div>
+      <div class="form-group">
+        <label>ای میل</label>
+        <input type="email" id="c-email" placeholder="example@email.com" dir="ltr">
+      </div>
+      <div class="form-group">
+        <label>موضوع</label>
+        <select id="c-subject">
+          <option>دینی سوال</option>
+          <option>تجویز</option>
+          <option>خرابی کی اطلاع</option>
+          <option>دیگر</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>پیغام</label>
+        <textarea id="c-msg" placeholder="اپنا پیغام یہاں لکھیں..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitContact()">پیغام بھیجیں ✓</button>
+      <div class="success-msg" id="success-msg">جزاک اللہ خیراً! آپ کا پیغام موصول ہو گیا۔</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GOOGLE ADSENSE ===== -->
+<!-- ADSENSE YAHAN LAGAYEIN: Apna AdSense code neeche paste karein -->
+<div style="text-align:center;padding:1rem;background:var(--bg);">
+  <!-- Yahan apna Google AdSense script aayega -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-AAPKI_ID" crossorigin="anonymous"></script> -->
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-AAPKI_ID" data-ad-slot="SLOT_ID" data-ad-format="auto"></ins> -->
+  <div style="background:var(--card);border:1px dashed #ccc;border-radius:8px;padding:1rem;max-width:600px;margin:0 auto;font-size:13px;color:var(--muted);">
+    📢 یہاں اشتہار آئے گا — Google AdSense approve hone ke baad
+  </div>
+</div>
+
+<!-- ===== DONATION SECTION ===== -->
+<div style="background:var(--green);padding:2rem 1.5rem;text-align:center;">
+  <div style="font-size:22px;color:var(--gold-light);margin-bottom:0.3rem;">🤲 صدقہ جاریہ</div>
+  <div style="font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:1.2rem;line-height:1.8;">
+    اس ویب سائٹ کو چلانے میں مدد کریں — آپ کا ہر تعاون صدقہ جاریہ ہے
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.8rem;margin-bottom:1rem;">
+    <!-- EASYPAISA -->
+    <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(200,153,26,0.5);border-radius:12px;padding:1rem 1.5rem;min-width:180px;">
+      <div style="font-size:20px;margin-bottom:0.4rem;">💚</div>
+      <div style="font-size:15px;color:var(--gold-light);font-weight:700;margin-bottom:0.3rem;">EasyPaisa</div>
+      <div style="font-size:18px;color:#fff;font-weight:700;" id="ep-num">0337-6331007</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:0.3rem;">Send Money → Mobile Number</div>
+    </div>
+  </div>
+
+  <div style="font-size:13px;color:rgba(255,255,255,0.6);">
+    جزاکم اللہ خیراً — اللہ آپ کو بہترین بدلہ دے
+  </div>
+</div>
+
+<footer>
+  <p>جزاکم اللہ خیراً &nbsp;|&nbsp; <span>نورِ اسلام</span> — ہر مسلمان کے لیے &nbsp;|&nbsp; ☪ 2026</p>
+</footer>
+
+<script>
+// DARK MODE
+function toggleDark(){document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark'));}
+if(localStorage.getItem('dark')==='true')document.body.classList.add('dark');
+
+// PAGE NAV
+function showPage(name,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  if(el)el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// HADITHS DATA
+const hadiths=[
+  {ar:'«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ»',ur:'اعمال کا دارومدار نیتوں پر ہے۔',src:'صحیح بخاری — ۱'},
+  {ar:'«الدِّينُ النَّصِيحَةُ»',ur:'دین خیرخواہی کا نام ہے۔',src:'صحیح مسلم — ۵۵'},
+  {ar:'«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ»',ur:'تم میں بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔',src:'صحیح بخاری — ۵۰۲۷'},
+  {ar:'«الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ»',ur:'مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔',src:'صحیح بخاری — ۱۰'},
+  {ar:'«تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ صَدَقَةٌ»',ur:'اپنے بھائی کے سامنے مسکرانا صدقہ ہے۔',src:'ترمذی — ۱۹۵۶'},
+  {ar:'«مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ»',ur:'جو اللہ اور آخرت پر ایمان رکھتا ہو وہ اچھی بات کہے یا خاموش رہے۔',src:'صحیح بخاری — ۶۰۱۸'},
+  {ar:'«إِنَّ اللَّهَ لَا يَنْظُرُ إِلَى أَجْسَادِكُمْ وَلَا إِلَى صُوَرِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ»',ur:'اللہ تمہارے جسموں اور چہروں کو نہیں دیکھتا بلکہ تمہارے دلوں کو دیکھتا ہے۔',src:'صحیح مسلم — ۲۵۶۴'},
+  {ar:'«أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ»',ur:'اللہ کو سب سے محبوب وہ عمل ہے جو مستقل ہو، چاہے تھوڑا ہی ہو۔',src:'صحیح بخاری — ۶۴۶۵'},
+];
+let hdIdx=0;
+function showHadith(){
+  document.getElementById('hd-ar').textContent=hadiths[hdIdx].ar;
+  document.getElementById('hd-ur').textContent=hadiths[hdIdx].ur;
+  document.getElementById('hd-src').textContent=hadiths[hdIdx].src;
+}
+function nextHadith(){hdIdx=(hdIdx+1)%hadiths.length;showHadith();}
+function prevHadith(){hdIdx=(hdIdx-1+hadiths.length)%hadiths.length;showHadith();}
+showHadith();
+
+// HADITH PAGE
+function renderHadiths(list){
+  const el=document.getElementById('hadith-list');
+  el.innerHTML=list.map(h=>`
+    <div class="dua-item">
+      <div class="dua-arabic">${h.ar}</div>
+      <div class="dua-urdu">${h.ur}</div>
+      <div class="dua-src">${h.src}</div>
+    </div>`).join('');
+}
+function filterHadiths(){
+  const q=document.getElementById('hadith-search').value;
+  renderHadiths(hadiths.filter(h=>h.ar.includes(q)||h.ur.includes(q)||!q));
+}
+renderHadiths(hadiths);
+
+// SURAHS
+const surahs=[
+  {num:1,name:'الفاتحہ',urname:'الفاتحہ',ayahs:7,type:'مکی',
+   ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿١﴾ الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٣﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٤﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٥﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٦﴾',
+   ur:'تمام تعریفیں اللہ کے لیے ہیں جو تمام جہانوں کا رب ہے ﴿۱﴾ بڑا مہربان، نہایت رحم والا ﴿۲﴾ روزِ جزا کا مالک ﴿۳﴾ ہم صرف تیری ہی عبادت کرتے ہیں اور صرف تجھ سے ہی مدد مانگتے ہیں ﴿۴﴾ ہمیں سیدھا راستہ دکھا ﴿۵﴾ ان لوگوں کا راستہ جن پر تو نے انعام فرمایا، ان لوگوں کا نہیں جن پر غضب ہوا اور نہ گمراہوں کا ﴿۶﴾'},
+  {num:112,name:'الاخلاص',urname:'الاخلاص',ayahs:4,type:'مکی',
+   ar:'قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ اللَّهُ الصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿٤﴾',
+   ur:'کہو وہ اللہ ایک ہے ﴿۱﴾ اللہ بے نیاز ہے ﴿۲﴾ نہ اس کی کوئی اولاد ہے اور نہ وہ کسی کی اولاد ﴿۳﴾ اور نہ کوئی اس کا ہمسر ہے ﴿۴﴾'},
+  {num:113,name:'الفلق',urname:'الفلق',ayahs:5,type:'مکی',
+   ar:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾',
+   ur:'کہو میں صبح کے رب کی پناہ مانگتا ہوں ﴿۱﴾ اس کی مخلوق کے شر سے ﴿۲﴾ اندھیری رات کے شر سے جب وہ چھا جائے ﴿۳﴾ گانٹھوں میں پھونکنے والیوں کے شر سے ﴿۴﴾ اور حسد کرنے والے کے شر سے جب وہ حسد کرے ﴿۵﴾'},
+  {num:114,name:'الناس',urname:'الناس',ayahs:6,type:'مکی',
+   ar:'قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾ مَلِكِ النَّاسِ ﴿٢﴾ إِلَهِ النَّاسِ ﴿٣﴾ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾ مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾',
+   ur:'کہو میں لوگوں کے رب کی پناہ مانگتا ہوں ﴿۱﴾ لوگوں کے بادشاہ کی ﴿۲﴾ لوگوں کے معبود کی ﴿۳﴾ وسوسہ ڈالنے والے پیچھے ہٹ جانے والے کے شر سے ﴿۴﴾ جو لوگوں کے سینوں میں وسوسے ڈالتا ہے ﴿۵﴾ جنوں میں سے ہو یا انسانوں میں سے ﴿۶﴾'},
+  {num:36,name:'یٰسٓ',urname:'یٰسٓ',ayahs:83,type:'مکی',
+   ar:'يس ﴿١﴾ وَالْقُرْآنِ الْحَكِيمِ ﴿٢﴾ إِنَّكَ لَمِنَ الْمُرْسَلِينَ ﴿٣﴾ عَلَى صِرَاطٍ مُّسْتَقِيمٍ ﴿٤﴾ تَنزِيلَ الْعَزِيزِ الرَّحِيمِ ﴿٥﴾',
+   ur:'یٰسٓ ﴿۱﴾ حکمت والے قرآن کی قسم ﴿۲﴾ بے شک تم رسولوں میں سے ہو ﴿۳﴾ سیدھے راستے پر ﴿۴﴾ غالب رحم کرنے والے کی طرف سے نازل کردہ ﴿۵﴾'},
+  {num:55,name:'الرحمٰن',urname:'الرحمٰن',ayahs:78,type:'مدنی',
+   ar:'الرَّحْمَنُ ﴿١﴾ عَلَّمَ الْقُرْآنَ ﴿٢﴾ خَلَقَ الْإِنسَانَ ﴿٣﴾ عَلَّمَهُ الْبَيَانَ ﴿٤﴾ فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ ﴿٥﴾',
+   ur:'رحمٰن ﴿۱﴾ نے قرآن سکھایا ﴿۲﴾ انسان کو پیدا کیا ﴿۳﴾ اسے بیان سکھایا ﴿۴﴾ پس تم اپنے رب کی کن کن نعمتوں کو جھٹلاؤ گے ﴿۵﴾'},
+  {num:2,name:'البقرۃ (آیۃ الکرسی)',urname:'البقرۃ',ayahs:286,type:'مدنی',
+   ar:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ',
+   ur:'اللہ — اس کے سوا کوئی معبود نہیں، وہ زندہ ہے، سب کا قائم رکھنے والا ہے۔ اسے نہ اونگھ آتی ہے نہ نیند۔ آسمانوں اور زمین میں جو کچھ ہے سب اسی کا ہے۔'},
+];
+let fontSize='md';
+function setFont(s){fontSize=s;['sm','md','lg'].forEach(x=>document.getElementById('btn-'+x).classList.remove('active'));document.getElementById('btn-'+s).classList.add('active');const sizes={sm:'18px',md:'24px',lg:'30px'};document.getElementById('reader-arabic').style.fontSize=sizes[s];}
+function renderSurahs(list){
+  document.getElementById('surah-list').innerHTML=list.map(s=>`
+    <div class="surah-item" onclick="openSurah(${s.num})">
+      <div><div class="surah-name">${s.name}</div><div class="surah-info">${s.type} · ${s.ayahs} آیات</div></div>
+      <div class="surah-num">${s.num}</div>
+    </div>`).join('');
+}
+function filterSurahs(){const q=document.getElementById('surah-search').value;renderSurahs(surahs.filter(s=>s.name.includes(q)||!q));}
+function openSurah(num){
+  const s=surahs.find(x=>x.num===num);
+  document.getElementById('surah-list').parentElement.style.display='none';
+  document.getElementById('surah-reader').style.display='block';
+  document.getElementById('surah-title').textContent='سورۃ '+s.name;
+  document.getElementById('reader-arabic').textContent=s.ar;
+  document.getElementById('reader-urdu').textContent=s.ur;
+}
+function closeSurah(){document.getElementById('surah-list').parentElement.style.display='block';document.getElementById('surah-reader').style.display='none';}
+renderSurahs(surahs);
+
+// DUAS
+const duas=[
+  {cat:'صبح کی دعا',ar:'اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا',ur:'اے اللہ! ہم نے تیرے نام سے صبح کی اور تیرے نام سے شام کی۔',src:'ابو داود'},
+  {cat:'رات کی دعا',ar:'اللَّهُمَّ بِكَ أَمْسَيْنَا وَبِكَ أَصْبَحْنَا',ur:'اے اللہ! ہم نے تیرے نام سے شام کی اور تیرے نام سے صبح کریں گے۔',src:'ابو داود'},
+  {cat:'کھانے سے پہلے',ar:'بِسْمِ اللهِ وَعَلَى بَرَكَةِ اللهِ',ur:'اللہ کے نام سے اور اللہ کی برکت سے (شروع کرتا ہوں)۔',src:'ابو داود'},
+  {cat:'کھانے کے بعد',ar:'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ',ur:'تمام تعریف اللہ کے لیے جس نے ہمیں کھلایا، پلایا اور مسلمان بنایا۔',src:'ابو داود'},
+  {cat:'گھر سے نکلتے وقت',ar:'بِسْمِ اللهِ تَوَكَّلْتُ عَلَى اللهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ',ur:'اللہ کے نام سے، میں نے اللہ پر توکل کیا، طاقت اور قوت صرف اللہ کے پاس ہے۔',src:'ترمذی'},
+  {cat:'سونے کی دعا',ar:'اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا',ur:'اے اللہ! تیرے نام سے مرتا ہوں اور جیتا ہوں۔',src:'بخاری'},
+  {cat:'بیت الخلا جاتے وقت',ar:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',ur:'اے اللہ! میں ناپاک جنوں سے تیری پناہ مانگتا ہوں۔',src:'بخاری'},
+  {cat:'مسجد میں داخل ہوتے وقت',ar:'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',ur:'اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے۔',src:'مسلم'},
+  {cat:'سفر کی دعا',ar:'اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى',ur:'اے اللہ! ہم اس سفر میں نیکی اور تقویٰ مانگتے ہیں۔',src:'مسلم'},
+  {cat:'عافیت کی دعا',ar:'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ',ur:'اے اللہ! میں تجھ سے عافیت مانگتا ہوں۔',src:'ابن ماجہ'},
+  {cat:'رمضان کی دعا',ar:'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي',ur:'اے اللہ! تو معاف کرنے والا ہے، معافی کو پسند کرتا ہے، مجھے معاف فرما۔',src:'ترمذی'},
+  {cat:'والدین کے لیے',ar:'رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',ur:'اے میرے رب! ان دونوں پر رحم فرما جیسا انہوں نے بچپن میں مجھے پالا۔',src:'سورۃ الاسراء'},
+];
+function renderDuas(list){
+  document.getElementById('dua-list').innerHTML=list.map(d=>`
+    <div class="dua-item">
+      <div class="dua-cat">${d.cat}</div>
+      <div class="dua-arabic">${d.ar}</div>
+      <div class="dua-urdu">${d.ur}</div>
+      <div class="dua-src">${d.src}</div>
+    </div>`).join('');
+}
+function filterDuas(){const q=document.getElementById('dua-search').value;renderDuas(duas.filter(d=>d.cat.includes(q)||d.ur.includes(q)||!q));}
+renderDuas(duas);
+
+// 99 NAMES
+const names=[
+  {n:1,ar:'الرَّحْمٰنُ',ur:'بڑا مہربان'},{n:2,ar:'الرَّحِيمُ',ur:'نہایت رحم والا'},{n:3,ar:'الْمَلِكُ',ur:'بادشاہ'},
+  {n:4,ar:'الْقُدُّوسُ',ur:'پاک'},  {n:5,ar:'السَّلَامُ',ur:'سلامتی دینے والا'},{n:6,ar:'الْمُؤْمِنُ',ur:'امن دینے والا'},
+  {n:7,ar:'الْمُهَيْمِنُ',ur:'نگہبان'},{n:8,ar:'الْعَزِيزُ',ur:'غالب'},{n:9,ar:'الْجَبَّارُ',ur:'زبردست'},
+  {n:10,ar:'الْمُتَكَبِّرُ',ur:'بڑائی والا'},{n:11,ar:'الْخَالِقُ',ur:'پیدا کرنے والا'},{n:12,ar:'الْبَارِئُ',ur:'صورت بنانے والا'},
+  {n:13,ar:'الْمُصَوِّرُ',ur:'شکل دینے والا'},{n:14,ar:'الْغَفَّارُ',ur:'بہت معاف کرنے والا'},{n:15,ar:'الْقَهَّارُ',ur:'بہت غالب آنے والا'},
+  {n:16,ar:'الْوَهَّابُ',ur:'بہت عطا کرنے والا'},{n:17,ar:'الرَّزَّاقُ',ur:'رزق دینے والا'},{n:18,ar:'الْفَتَّاحُ',ur:'کھولنے والا'},
+  {n:19,ar:'الْعَلِيمُ',ur:'سب کچھ جاننے والا'},{n:20,ar:'الْقَابِضُ',ur:'روکنے والا'},{n:21,ar:'الْبَاسِطُ',ur:'پھیلانے والا'},
+  {n:22,ar:'الْخَافِضُ',ur:'نیچا کرنے والا'},{n:23,ar:'الرَّافِعُ',ur:'اونچا کرنے والا'},{n:24,ar:'الْمُعِزُّ',ur:'عزت دینے والا'},
+  {n:25,ar:'الْمُذِلُّ',ur:'ذلت دینے والا'},{n:26,ar:'السَّمِيعُ',ur:'سننے والا'},{n:27,ar:'الْبَصِيرُ',ur:'دیکھنے والا'},
+  {n:28,ar:'الْحَكَمُ',ur:'فیصلہ کرنے والا'},{n:29,ar:'الْعَدْلُ',ur:'انصاف والا'},{n:30,ar:'اللَّطِيفُ',ur:'باریک بین'},
+  {n:31,ar:'الْخَبِيرُ',ur:'خبر رکھنے والا'},{n:32,ar:'الْحَلِيمُ',ur:'بردبار'},{n:33,ar:'الْعَظِيمُ',ur:'عظمت والا'},
+  {n:34,ar:'الْغَفُورُ',ur:'معاف کرنے والا'},{n:35,ar:'الشَّكُورُ',ur:'شکر قبول کرنے والا'},{n:36,ar:'الْعَلِيُّ',ur:'بلند'},
+  {n:37,ar:'الْكَبِيرُ',ur:'بڑا'},{n:38,ar:'الْحَفِيظُ',ur:'حفاظت کرنے والا'},{n:39,ar:'الْمُقِيتُ',ur:'رزق پہنچانے والا'},
+  {n:40,ar:'الْحَسِيبُ',ur:'حساب لینے والا'},{n:41,ar:'الْجَلِيلُ',ur:'جلالت والا'},{n:42,ar:'الْكَرِيمُ',ur:'کریم'},
+  {n:43,ar:'الرَّقِيبُ',ur:'نگران'},{n:44,ar:'الْمُجِيبُ',ur:'قبول کرنے والا'},{n:45,ar:'الْوَاسِعُ',ur:'وسعت والا'},
+  {n:46,ar:'الْحَكِيمُ',ur:'حکمت والا'},{n:47,ar:'الْوَدُودُ',ur:'محبت کرنے والا'},{n:48,ar:'الْمَجِيدُ',ur:'بزرگی والا'},
+  {n:49,ar:'الْبَاعِثُ',ur:'اٹھانے والا'},{n:50,ar:'الشَّهِيدُ',ur:'گواہ'},{n:51,ar:'الْحَقُّ',ur:'سچا'},
+  {n:52,ar:'الْوَكِيلُ',ur:'کارساز'},{n:53,ar:'الْقَوِيُّ',ur:'طاقتور'},{n:54,ar:'الْمَتِينُ',ur:'مضبوط'},
+  {n:55,ar:'الْوَلِيُّ',ur:'دوست'},{n:56,ar:'الْحَمِيدُ',ur:'قابل تعریف'},{n:57,ar:'الْمُحْصِي',ur:'شمار کرنے والا'},
+  {n:58,ar:'الْمُبْدِئُ',ur:'ابتدا کرنے والا'},{n:59,ar:'الْمُعِيدُ',ur:'دوبارہ پیدا کرنے والا'},{n:60,ar:'الْمُحْيِي',ur:'زندگی دینے والا'},
+  {n:61,ar:'الْمُمِيتُ',ur:'موت دینے والا'},{n:62,ar:'الْحَيُّ',ur:'زندہ'},{n:63,ar:'الْقَيُّومُ',ur:'قائم رکھنے والا'},
+  {n:64,ar:'الْوَاجِدُ',ur:'پانے والا'},{n:65,ar:'الْمَاجِدُ',ur:'بزرگ'},{n:66,ar:'الْوَاحِدُ',ur:'ایک'},
+  {n:67,ar:'الْأَحَدُ',ur:'یکتا'},{n:68,ar:'الصَّمَدُ',ur:'بے نیاز'},{n:69,ar:'الْقَادِرُ',ur:'قادر'},
+  {n:70,ar:'الْمُقْتَدِرُ',ur:'قدرت والا'},{n:71,ar:'الْمُقَدِّمُ',ur:'آگے کرنے والا'},{n:72,ar:'الْمُؤَخِّرُ',ur:'پیچھے کرنے والا'},
+  {n:73,ar:'الْأَوَّلُ',ur:'پہلا'},{n:74,ar:'الْآخِرُ',ur:'آخری'},{n:75,ar:'الظَّاهِرُ',ur:'ظاہر'},
+  {n:76,ar:'الْبَاطِنُ',ur:'پوشیدہ'},{n:77,ar:'الْوَالِي',ur:'حاکم'},{n:78,ar:'الْمُتَعَالِي',ur:'بلند تر'},
+  {n:79,ar:'الْبَرُّ',ur:'احسان کرنے والا'},{n:80,ar:'التَّوَّابُ',ur:'توبہ قبول کرنے والا'},{n:81,ar:'الْمُنْتَقِمُ',ur:'بدلہ لینے والا'},
+  {n:82,ar:'الْعَفُوُّ',ur:'معاف کرنے والا'},{n:83,ar:'الرَّؤُوفُ',ur:'نہایت شفیق'},{n:84,ar:'مَالِكُ الْمُلْكِ',ur:'ملک کا مالک'},
+  {n:85,ar:'ذُو الْجَلَالِ',ur:'جلال والا'},{n:86,ar:'الْمُقْسِطُ',ur:'انصاف کرنے والا'},{n:87,ar:'الْجَامِعُ',ur:'اکٹھا کرنے والا'},
+  {n:88,ar:'الْغَنِيُّ',ur:'بے نیاز'},{n:89,ar:'الْمُغْنِي',ur:'غنی کرنے والا'},{n:90,ar:'الْمَانِعُ',ur:'روکنے والا'},
+  {n:91,ar:'الضَّارُّ',ur:'نقصان دینے والا'},{n:92,ar:'النَّافِعُ',ur:'فائدہ دینے والا'},{n:93,ar:'النُّورُ',ur:'نور'},
+  {n:94,ar:'الْهَادِي',ur:'ہدایت دینے والا'},{n:95,ar:'الْبَدِيعُ',ur:'انوکھا بنانے والا'},{n:96,ar:'الْبَاقِي',ur:'باقی رہنے والا'},
+  {n:97,ar:'الْوَارِثُ',ur:'وارث'},{n:98,ar:'الرَّشِيدُ',ur:'سیدھا رہنے والا'},{n:99,ar:'الصَّبُورُ',ur:'صبر کرنے والا'},
+];
+function renderNames(list){
+  document.getElementById('names-grid').innerHTML=list.map(n=>`
+    <div class="name-card">
+      <div class="name-num">${n.n}</div>
+      <div class="name-arabic">${n.ar}</div>
+      <div class="name-urdu">${n.ur}</div>
+    </div>`).join('');
+}
+function filterNames(){const q=document.getElementById('names-search').value;renderNames(names.filter(n=>n.ar.includes(q)||n.ur.includes(q)||!q));}
+renderNames(names);
+
+// HIJRI DATE
+function toHijri(date){
+  const jd=Math.floor((14+date.getMonth()+1)/12);
+  const y=date.getFullYear()+4800-jd;
+  const m=date.getMonth()+1+12*jd-3;
+  let jdn=date.getDate()+Math.floor((153*m+2)/5)+365*y+Math.floor(y/4)-Math.floor(y/100)+Math.floor(y/400)-32045;
+  let l=jdn-1948440+10632;
+  const n=Math.floor((l-1)/10631);
+  l=l-10631*n+354;
+  const j=(Math.floor((10985-l)/5316))*(Math.floor((50*l)/17719))+(Math.floor(l/5670))*(Math.floor((43*l)/15238));
+  l=l-(Math.floor((30-j)/15))*(Math.floor((17719*j)/50))-(Math.floor(j/16))*(Math.floor((15238*j)/43))+29;
+  const hYear=19*n+Math.floor(j/4)+Math.floor(l/29)-30;
+  const hMonth=Math.floor(l/29);
+  const hDay=l%29+1;
+  return{day:hDay,month:hMonth,year:hYear};
+}
+const hijriMonths=['محرم','صفر','ربیع الاول','ربیع الثانی','جمادی الاول','جمادی الثانی','رجب','شعبان','رمضان','شوال','ذوالقعدہ','ذوالحجہ'];
+const h=toHijri(new Date());
+document.getElementById('hijri-date').textContent=h.day+' '+hijriMonths[h.month-1]+' '+h.year+' ہجری';
+document.getElementById('hijri-month-name').textContent='مہینہ: '+hijriMonths[h.month-1];
+
+// EVENTS
+const events=[
+  {name:'یومِ عاشورہ',date:'۱۰ محرم',desc:'حضرت موسیٰ علیہ السلام کی نجات کا دن — روزہ رکھنا مستحب ہے'},
+  {name:'میلاد النبی ﷺ',date:'۱۲ ربیع الاول',desc:'نبی کریم ﷺ کی ولادت با سعادت کا دن'},
+  {name:'شبِ معراج',date:'۲۷ رجب',desc:'نبی کریم ﷺ کا آسمانوں پر سفر کا دن'},
+  {name:'شبِ برات',date:'۱۵ شعبان',desc:'برکت اور مغفرت کی رات — عبادت اور دعا کا خاص موقع'},
+  {name:'رمضان المبارک',date:'۱ رمضان',desc:'روزوں کا مہینہ — قرآن نازل ہوا'},
+  {name:'شبِ قدر',date:'۲۷ رمضان',desc:'ہزار مہینوں سے بہتر رات'},
+  {name:'عیدالفطر',date:'۱ شوال',desc:'رمضان کے بعد خوشی کا تہوار'},
+  {name:'عرفہ کا دن',date:'۹ ذوالحجہ',desc:'حج کا اہم دن — روزہ رکھنا سنت ہے'},
+  {name:'عیدالاضحیٰ',date:'۱۰ ذوالحجہ',desc:'قربانی کا تہوار — حضرت ابراہیم علیہ السلام کی یاد'},
+];
+document.getElementById('events-list').innerHTML=events.map(e=>`
+  <div style="background:var(--card);border:0.5px solid #ddd;border-radius:10px;padding:1rem;border-right:4px solid var(--gold);">
+    <div style="font-size:15px;color:var(--green);font-weight:700;">${e.name}</div>
+    <div style="font-size:12px;color:var(--gold-dark);margin:2px 0;">${e.date}</div>
+    <div style="font-size:13px;color:var(--muted);">${e.desc}</div>
+  </div>`).join('');
+
+// CONTACT
+function submitContact(){
+  const n=document.getElementById('c-name').value;
+  const e=document.getElementById('c-email').value;
+  if(!n||!e){alert('براہ کرم نام اور ای میل درج کریں۔');return;}
+  document.getElementById('success-msg').style.display='block';
+  document.getElementById('c-name').value='';
+  document.getElementById('c-email').value='';
+  document.getElementById('c-msg').value='';
+}
+
+// QIBLA animate
+setTimeout(()=>{document.getElementById('qibla-arrow').style.transform='rotate(-83deg)';},500);
+</script>
+</body>
+</html>
